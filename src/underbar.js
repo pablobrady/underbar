@@ -49,13 +49,13 @@
   // iterator function over each item in the input collection.
   _.each = function(collection, iterator) {
     if(Array.isArray(collection)) {
-      for(var index=0; index<collection.length; index++) {
-        iterator( collection[index], index, collection );
+      for(var indexA=0; indexA<collection.length; indexA++) {
+        iterator( collection[indexA], indexA, collection );
       }
     } else {
       for(var index in collection) {
         iterator( collection[index], index, collection );
-      };
+      }
     }
   };
 
@@ -104,7 +104,7 @@
     // COPY THE ORIGINAL ARRAY (EXCLUDING THE TEST PASSES)
     var invertedArray = _.filter(collection, test);
     for(var i=0; i<collection.length; i++) {
-      if ( !(_.indexOf(invertedArray, collection[i])>=0) ) { 
+      if ( _.indexOf(invertedArray, collection[i])<0 ) { 
         ret.push(collection[i]);
       }
     }
@@ -243,17 +243,17 @@
 
     if (!iterator || iterator==="") { 
       iterator = function(val){ return val; };
-    };
+    }
 
     // Adjust all elements in Collection, as nec.
     var newCollection = [];
     for (var e in collection) {
       var adjustedE = collection[e];
-      if (adjustedE==undefined || adjustedE==0) {
+      if (adjustedE===undefined || adjustedE===0) {
         adjustedE=false;
       } 
       newCollection.push(adjustedE);
-    };
+    }
 
     return _.reduce(newCollection, function(last, current) {
       if ( !Boolean(last) || !Boolean(iterator(current)) ) {
@@ -274,7 +274,7 @@
 
     if (!iterator || iterator==="") { 
       iterator = function(val){ return val; };
-    };
+    }
 
     return _.reduce(collection, function(aPrevious, current) {
       if ( Boolean(aPrevious) || Boolean(iterator(current)) ) {
@@ -325,19 +325,19 @@
     // Shallow copy OLD object params to newObj.
     for (var e in obj) {
       newObj[e] = obj[e];
-    };
+    }
 
     // Now, add the ARGUMENT parameters, to the newObj. (Copies only two levels deep.)
-    for (var e in arguments) {
-      var subObject = arguments[e];
+    for (var ee in arguments) {
+      var subObject = arguments[ee];
       if (typeof subObject === "object") {
         for (var f in subObject) {
           if (subObject[f]) {
             newObj[f] = subObject[f];
-          };
-        };
-      };
-    };  
+          }
+        }
+      }
+    } 
 
     return newObj;
   };
@@ -367,21 +367,21 @@
     // Shallow copy OLD object params to empty newObj.
     for (var e in obj) {
       newObj[e] = obj[e];
-    };
+    }
 
     // Now, add the ARGUMENT parameters, to the newObj. (Copies only two levels deep.)
-    for (var e in arguments) {
-      var argObject = arguments[e];
+    for (var g in arguments) {
+      var argObject = arguments[g];
       if (typeof argObject === "object") {
         for (var f in argObject) {
           if (argObject[f]){
             if ( newObj[f]==null && newObj[f]!=NaN && !newObj[f] ) {
               newObj[f] = argObject[f];
-            };
-          };
-        };
-      };
-    };
+            }
+          }
+        }
+      }
+    }
 
     return newObj;
   };
@@ -441,7 +441,7 @@
       for ( var i = 0; i < arguments.length; i++) {
         var spacer = (i<arguments.length-1 ? "-" : "");
         resultsKey += arguments[i] + spacer;
-      };
+      }
 
       alreadyCalled = (resultsObject[resultsKey] ? true : false);
 
@@ -502,7 +502,7 @@
       temp = newArray[i];
       newArray[i] = newArray[rand];
       newArray[rand] = temp;
-    };
+    }
 
     return newArray;
   };
